@@ -30,24 +30,34 @@ describe('Park', function() {
   });
 
   it('should be able to add a dinosaur to its collection', function(){
-    park.addDinosaur(dinosaur)
+    park.addDinosaur(dinosaur1)
     const actual = park.dinosaurs.length;
     assert.strictEqual(actual, 1);
   });
 
   it('should be able to remove a dinosaur from its collection', function(){
-    park.removeDinosaur(dinosaur)
+    park.removeDinosaur(dinosaur1)
     const actual = park.dinosaurs.length;
     assert.strictEqual(actual, 0);
   });
 
 
   it('should be able to find the dinosaur that attracts the most visitors', function(){
-    
+    park.addDinosaur(dinosaur1)
+    park.addDinosaur(dinosaur2)
+    const actual = park.findMostPopularDino()
+    assert.strictEqual(actual, 't-rex')
   });
 
-  xit('should be able to find all dinosaurs of a particular species');
+  it('should be able to find all dinosaurs of a particular species', function(){
+    park.findDinosBySpecies('t-rex')
+    const actual = park.findDinosBySpecies.length;
+    assert.strictEqual(actual, 1)
+  });
 
-  xit('should be able to remove all dinosaurs of a particular species');
-
+  it('should be able to remove all dinosaurs of a particular species', function(){
+    park.removeDinosBySpecies('t-rex');
+    const actual = park.dinosaurs.length;
+    assert.strictEqual(actual, 1);
+  });
 });
