@@ -5,13 +5,13 @@ const Dinosaur = require('../models/dinosaur.js');
 describe('Park', function() {
 
   let park;
-  let dinosaur1;
-  let dinosaur2
+  let trex;
+  let brachiosaurus;
 
   beforeEach(function() {
     park = new Park('Jurassic Park', 2000);
-    dinosaur1 = new Dinosaur('t-rex', 'carnivore', 50);
-    dinosaur2 = new Dinosaur('brachiosaurus', 'herbivore', 20)
+    trex = new Dinosaur('t-rex', 'carnivore', 50);
+    brachiosaurus = new Dinosaur('brachiosaurus', 'herbivore', 20)
   });
 
   it('should have a name', function(){
@@ -30,21 +30,21 @@ describe('Park', function() {
   });
 
   it('should be able to add a dinosaur to its collection', function(){
-    park.addDinosaur(dinosaur1)
+    park.addDinosaur(trex)
     const actual = park.dinosaurs.length;
     assert.strictEqual(actual, 1);
   });
 
   it('should be able to remove a dinosaur from its collection', function(){
-    park.removeDinosaur(dinosaur1)
+    park.removeDinosaur(trex)
     const actual = park.dinosaurs.length;
     assert.strictEqual(actual, 0);
   });
 
 
   it('should be able to find the dinosaur that attracts the most visitors', function(){
-    park.addDinosaur(dinosaur1)
-    park.addDinosaur(dinosaur2)
+    park.addDinosaur(trex)
+    park.addDinosaur(brachiosaurus)
     const actual = park.findMostPopularDino()
     assert.strictEqual(actual, 't-rex')
   });
@@ -55,9 +55,12 @@ describe('Park', function() {
     assert.strictEqual(actual, 1)
   });
 
-  it('should be able to remove all dinosaurs of a particular species', function(){
-    park.removeDinosBySpecies('t-rex');
-    const actual = park.dinosaurs.length;
-    assert.strictEqual(actual, 1);
+  it('should be able to remove all dinosaurs of a particular species', function () {
+    park.addDinosaur(trex);
+    park.addDinosaur(brachiosaurus);
+    park.removeBySpecies('t-rex');
+    const actual = park.dinosaurs;
+    const expected = [brachiosaurus];
+    assert.deepStrictEqual(actual, expected);
   });
 });

@@ -1,4 +1,4 @@
-const Park = function(name, ticketPrice){   
+const Park = function(name, ticketPrice){
     this.name = name;
     this.ticketPrice = ticketPrice;
     this.dinosaurs = []
@@ -31,13 +31,15 @@ Park.prototype.findDinosBySpecies = function(species){
 
 }
 
-Park.prototype.removeDinosBySpecies = function(species){
-    let result = this.dinosaurs;
-    for(let dino of this.dinosaurs){
-        if (species === dino.species)
-            result.splice(dino);
-    }
-    return result;
+Park.prototype.removeBySpecies = function (species) {
+  const newDinosaurs = [];
 
+  for (const dinosaur of this.dinosaurs) {
+    if (dinosaur.species !== species) {
+      newDinosaurs.push(dinosaur);
+    }
+  }
+
+  this.dinosaurs = newDinosaurs;
 }
 module.exports = Park;
